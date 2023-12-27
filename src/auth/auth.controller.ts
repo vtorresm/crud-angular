@@ -8,13 +8,14 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './guard/auth.guard';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
 import { Request } from 'express';
 import { Roles } from './decorators/roles.decorator';
 import { RolesGuard } from './guard/roles.guard';
+import { Role } from './enums/role.enum';
 
 interface RequestWithUser extends Request {
   user: { email: string; role: string };
@@ -36,7 +37,7 @@ export class AuthController {
   }
 
   @Get('profile')
-  @Roles('user')
+  @Roles(Role.USER)
   @UseGuards(AuthGuard, RolesGuard)
   profile(@Req() req: RequestWithUser) {
     return req.user;
