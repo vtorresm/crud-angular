@@ -15,6 +15,8 @@ export class RolesGuard implements CanActivate {
 
     console.log(requiredRoles);
 
+    //const user = await this.usersService.findOneByEmailWithPassword(email);
+
     if (!requiredRoles) {
       return true;
     }
