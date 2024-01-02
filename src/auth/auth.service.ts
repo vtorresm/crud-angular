@@ -21,7 +21,7 @@ export class AuthService {
     const user = await this.usersService.findOneByEmail(email);
 
     if (user) {
-      throw new BadRequestException('Email already exists');
+      throw new BadRequestException('User already exists');
     }
 
     const hashedPassword = await bcryptjs.hash(password, 10);
@@ -38,7 +38,7 @@ export class AuthService {
   }
 
   async login({ email, password }: LoginDto) {
-    const user = await this.usersService.findOneByEmail(email);
+    const user = await this.usersService.findOneByEmailWithPassword(email);
 
     if (!user) {
       throw new UnauthorizedException('Invalid email');
@@ -58,5 +58,9 @@ export class AuthService {
       token: token,
       email: user.email,
     };
+  }
+
+  async profile({ email, role }: { email: string; role: string }) {
+    return await this.usersService.findOneByEmail(email);
   }
 }

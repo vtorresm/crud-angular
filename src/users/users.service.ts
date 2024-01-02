@@ -16,6 +16,10 @@ export class UsersService {
     return await this.usersRepository.save(createUserDto);
   }
 
+  findAll() {
+    return this.usersRepository.find();
+  }
+
   async findOneByEmail(email: string) {
     return await this.usersRepository.findOneBy({ email });
   }
