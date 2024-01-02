@@ -5,21 +5,23 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  Req,
-  UseGuards,
+  //Req,
+  //UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from './guard/auth.guard';
+//import { AuthGuard } from './guard/auth.guard';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { RegisterDto } from './dto/register.dto';
-import { Request } from 'express';
+//import { Request } from 'express';
 import { Roles } from './decorators/roles.decorator';
-import { RolesGuard } from './guard/roles.guard';
-import { Role } from './enums/role.enum';
+//import { RolesGuard } from './guard/roles.guard';
+import { Role } from '../common/enums/role.enum';
+import { ActiveUser } from '../common/decorators/active-user.decorator';
+import { ActiveUserInterface } from '../common/interfaces/active-user.interface';
 
-interface RequestWithUser extends Request {
-  user: { email: string; role: string };
-}
+// interface RequestWithUser extends Request {
+//   user: { email: string; role: string };
+// }
 
 @Controller('auth')
 export class AuthController {
@@ -38,8 +40,8 @@ export class AuthController {
 
   @Get('profile')
   @Roles(Role.USER)
-  @UseGuards(AuthGuard, RolesGuard)
-  profile(@Req() req: RequestWithUser) {
-    return req.user;
+  //@UseGuards(AuthGuard, RolesGuard)
+  profile(@ActiveUser() user: ActiveUserInterface) {
+    return this.authService.profile(user);
   }
 }

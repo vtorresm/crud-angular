@@ -1,5 +1,6 @@
 import {
   Column,
+  DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -50,6 +51,6 @@ export class Game {
   @IsString()
   genre: string;
 
-  // @DeleteDateColumn()
-  // deletedAt: Date;
+  @DeleteDateColumn()
+  deletedAt: Date;
 }
