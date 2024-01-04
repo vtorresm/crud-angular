@@ -5,7 +5,7 @@ import { Role } from '../../common/enums/role.enum';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  constructor(private readonly reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
     const requiredRoles = this.reflector.getAllAndOverride<Role>(ROLES_KEY, [
@@ -13,16 +13,12 @@ export class RolesGuard implements CanActivate {
       context.getClass(),
     ]);
 
-    console.log(requiredRoles);
-
-    //const user = await this.usersService.findOneByEmailWithPassword(email);
-
     if (!requiredRoles) {
       return true;
     }
 
     const { user } = context.switchToHttp().getRequest();
 
-    return user.role === requiredRoles;
+    return user.role === Role.ADMIN || user.role === requiredRoles;
   }
 }

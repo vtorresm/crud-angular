@@ -3,7 +3,6 @@ import {
   IsPositive,
   IsString,
   IsNotEmpty,
-  //IsDateString,
 } from 'class-validator';
 import { IsDecimal } from '../../helpers/is-decimal.decorator';
 
@@ -25,10 +24,6 @@ export class CreateGameDto {
   @IsOptional()
   highScore?: number;
 
-  // @IsDateString()
-  // @IsNotEmpty()
-  // releaseDate: Date;
-
   @IsString()
   @IsOptional()
   developerStudio?: string;
@@ -41,4 +36,8 @@ export class CreateGameDto {
   @IsString()
   @IsOptional()
   genre?: string;
+
+  @IsString()
+  @IsOptional()
+  type?: string;
 }
