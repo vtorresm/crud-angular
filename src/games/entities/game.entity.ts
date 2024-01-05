@@ -56,7 +56,7 @@ export class Game {
   @ManyToOne(() => TypeGame, (typeGame) => typeGame.id, {
     eager: true, // para que traiga los tipos al hacer un findOne
   })
-  typeGame: TypeGame;
+  typeName: TypeGame;
 
   @ManyToOne(() => User)
   @JoinColumn({ name: 'userEmail', referencedColumnName: 'email' })

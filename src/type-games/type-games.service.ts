@@ -1,12 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateTypeGameDto } from './dto/create-type-game.dto';
-import { UpdateTypeGameDto } from './dto/update-type-game.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { TypeGame } from './entities/type-game.entity';
 import { Repository } from 'typeorm';
 
+import { CreateTypeGameDto } from './dto/create-type-game.dto';
+import { TypeGame } from './entities/type-game.entity';
+import { UpdateTypeGameDto } from './dto/update-type-game.dto';
+
+
 @Injectable()
-export default class TypeGamesService {
+export class TypeGamesService {
   constructor(
     @InjectRepository(TypeGame)
     private typeGamesRepository: Repository<TypeGame>,

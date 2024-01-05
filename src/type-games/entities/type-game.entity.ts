@@ -18,14 +18,14 @@ export class TypeGame {
   @IsString()
   typeName: string;
 
-  @Column({length: 500})
+  @Column({ length: 500 })
   @IsNotEmpty()
   @IsString()
   descriptionType: string;
 
+  @OneToMany(() => Game, (game) => game.typeName)
+  games: Game[];
+
   @DeleteDateColumn()
   deletedAt: Date;
-
-  @OneToMany(() => Game, (game) => game.typeGame)
-  games: Game[];
 }

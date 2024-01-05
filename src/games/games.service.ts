@@ -23,12 +23,12 @@ export class GamesService {
   ) {}
 
   async create(createGameDto: CreateGameDto, user: ActiveUserInterface) {
-    const type = await this.validateGameType(createGameDto.type);
+    const typeName = await this.validateGameType(createGameDto.typeName);
 
     try {
       return this.gameRepository.save({
         ...createGameDto,
-        type,
+        typeName,
         userEmail: user.email,
       });
     } catch (error) {
@@ -62,14 +62,14 @@ export class GamesService {
   ) {
     await this.findOne(id, user);
 
-    const typeGame = updateGameDto.type
-      ? await this.validateGameType(updateGameDto.type)
+    const typeName = updateGameDto.typeName
+      ? await this.validateGameType(updateGameDto.typeName)
       : undefined;
 
     try {
       return this.gameRepository.update(id, {
         ...updateGameDto,
-        typeGame,
+        typeName,
         userEmail: user.email,
       });
     } catch (error) {

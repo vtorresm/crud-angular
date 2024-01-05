@@ -39,5 +39,5 @@ export class CreateGameDto {
 
   @IsString()
   @IsOptional()
-  type?: string;
+  typeName?: string;
 }
