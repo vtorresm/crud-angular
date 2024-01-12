@@ -2,9 +2,13 @@ import {
   Column,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { IsNotEmpty, IsString, IsNumber } from 'class-validator';
+import { TypeGame } from '../../type-games/entities/type-game.entity';
+import { User } from '../../users/entities/user.entity';
 
 @Entity()
 export class Game {
@@ -31,11 +35,6 @@ export class Game {
   @IsNumber()
   highScore: number;
 
-  // @Column()
-  // @IsNotEmpty()
-  // @IsDate()
-  // releaseDate: Date;
-
   @Column()
   @IsNotEmpty()
   @IsString()
@@ -53,4 +52,16 @@ export class Game {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @ManyToOne(() => TypeGame, (typeGame) => typeGame.id, {
+    eager: true, // para que traiga los tipos al hacer un findOne
+  })
+  typeName: TypeGame;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'userEmail', referencedColumnName: 'email' })
+  user: User;
+
+  @Column()
+  userEmail: string;
 }

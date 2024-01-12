@@ -19,10 +19,6 @@ import { Role } from '../common/enums/role.enum';
 import { ActiveUser } from '../common/decorators/active-user.decorator';
 import { ActiveUserInterface } from '../common/interfaces/active-user.interface';
 
-// interface RequestWithUser extends Request {
-//   user: { email: string; role: string };
-// }
-
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -40,7 +36,6 @@ export class AuthController {
 
   @Get('profile')
   @Roles(Role.USER)
-  //@UseGuards(AuthGuard, RolesGuard)
   profile(@ActiveUser() user: ActiveUserInterface) {
     return this.authService.profile(user);
   }
